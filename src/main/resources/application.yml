@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/warungpos
-    username: postgres
-    password: 12345
+    url: jdbc:postgresql://43.243.187.6:5432/catadb
+    username: catalis
+    password: c4t4l1s
   jpa:
     properties:
       hibernate:
@@ -12,3 +12,5 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: none
+server:
+  port: 6060
