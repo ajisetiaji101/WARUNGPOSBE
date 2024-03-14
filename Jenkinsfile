@@ -1,5 +1,11 @@
 pipeline {
     agent any
+        environment {
+            // Sesuaikan dengan konfigurasi Anda
+            APP_NAME = 'warungposbe-0.0.1-SNAPSHOT'
+            JAR_FILE = "target/${APP_NAME}.jar"
+            DEPLOYMENT_DIR = '/var/lib/jenkins/workspace/WARUNGPOSBE'
+        }
     triggers {
         pollSCM('*/2 * * * *')
     }
@@ -23,9 +29,8 @@ pipeline {
                         // If process is running, kill it
                         sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
                     }
-                    sh "cp ${JAR_FILE} ${/var/lib/jenkins/workspace/WARUNGPOSBE/warungposbe-0.0.1-SNAPSHOT.jar}/${}.jar"
-                    // Deploy the application using nohup
-                    sh "sudo systemctl start warungposbe-0.0.1-SNAPSHOT.jar"
+                    sh "cp ${JAR_FILE} ${DEPLOYMENT_DIR}/${APP_NAME}.jar"
+                    sh "sudo systemctl start warungposbe-0.0.1-SNAPSHOT.service"
                 }
             }
         }
