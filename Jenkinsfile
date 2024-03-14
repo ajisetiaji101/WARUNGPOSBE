@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'kill $(lsof -t -i:6060)'
+//                     sh 'kill $(lsof -t -i:6060)'
                     // Deploy the application using nohup
                     sh 'cd /var/lib/jenkins/workspace/WARUNGPOSBE && BUILD_ID=dontKillMe nohup ./mvnw spring-boot:run &'
                 }
