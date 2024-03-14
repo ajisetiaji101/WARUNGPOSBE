@@ -1,11 +1,5 @@
 pipeline {
     agent any
-        environment {
-            // Sesuaikan dengan konfigurasi Anda
-            APP_NAME = 'warungposbe-0.0.1-SNAPSHOT'
-            JAR_FILE = "target/${APP_NAME}.jar"
-            DEPLOYMENT_DIR = '/var/lib/jenkins/workspace/WARUNGPOSBE'
-        }
     triggers {
         pollSCM('*/2 * * * *')
     }
@@ -29,8 +23,22 @@ pipeline {
                         // If process is running, kill it
                         sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
                     }
-                    sh "cp ${JAR_FILE} ${DEPLOYMENT_DIR}/${APP_NAME}.jar"
-                    sh "systemctl start warungposbe-0.0.1-SNAPSHOT.service"
+                    // Deploy the application using nohup
+                    sh 'BUILD_ID=dontKillMe nohup java -jar /var/lib/jenkins/workspace/WARUNGPOSBE/target/warungposbe-0.0.1-SNAPSHOT.jar > /var/lib/jenkins/workspace/WARUNGPOSBE/nohup.out 2>&1 &'
+                }
+            }
+        }
+        stage('Verify') {
+            steps {
+                script {
+                    // Add a verification step to check if the application is running
+                    def isAppRunning = sh(script: 'ps aux | grep warungposbe-0.0.1-SNAPSHOT.jar | grep -v grep', returnStatus: true)
+                    if (isAppRunning != 0) {
+                        // If the application is not running, print an error message
+                        error "The application is not running after deployment."
+                    } else {
+                        echo "The application is running successfully."
+                    }
                 }
             }
         }
