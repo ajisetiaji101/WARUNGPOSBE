@@ -30,7 +30,7 @@ pipeline {
                         sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
                     }
                     sh "cp ${JAR_FILE} ${DEPLOYMENT_DIR}/${APP_NAME}.jar"
-                    sh "sudo systemctl start warungposbe-0.0.1-SNAPSHOT.service"
+                    sh "systemctl start warungposbe-0.0.1-SNAPSHOT.service"
                 }
             }
         }
