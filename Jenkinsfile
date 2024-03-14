@@ -3,18 +3,15 @@ pipeline {
     triggers {
         pollSCM('*/2 * * * *')
     }
-    tools {
-        maven 'Maven 3.9.5'
-    }
     stages {
                 stage('Build') {
                     steps {
-                        sh 'sudo mvn clean install'
+                        sh 'mvn clean install'
                     }
                 }
                 stage('Test') {
                     steps {
-                        sh 'sudo mvn test'
+                        sh 'mvn test'
                     }
                 }
                 stage('Deploy') {
