@@ -24,7 +24,7 @@ pipeline {
                         sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
                     }
                     // Deploy the application using nohup
-                    sh 'cd /var/lib/jenkins/workspace/WARUNGPOSBE/target && BUILD_ID=dontKillMe java -jar warungposbe-0.0.1-SNAPSHOT.jar'
+                    sh 'cd /var/lib/jenkins/workspace/WARUNGPOSBE/target && BUILD_ID=dontKillMe nohup java -jar warungposbe-0.0.1-SNAPSHOT.jar'
                     sh 'exit'
                 }
             }
