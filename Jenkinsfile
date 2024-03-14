@@ -18,13 +18,13 @@ pipeline {
             steps {
                 script {
                     // Check if the process is already running
-                    def isProcessRunning = sh(script: 'ps aux | grep WARUNGPOSBE-0.0.1-SNAPSHOT.jar | grep -v grep', returnStatus: true)
+                    def isProcessRunning = sh(script: 'ps aux | grep warungposbe-0.0.1-SNAPSHOT.jar | grep -v grep', returnStatus: true)
                     if (isProcessRunning == 0) {
                         // If process is running, kill it
-                        sh 'pkill -f WARUNGPOSBE-0.0.1-SNAPSHOT.jar'
+                        sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
                     }
                     // Deploy the application using nohup
-                    sh 'cd /var/lib/jenkins/workspace/WARUNGPOSBE/target && nohup java -jar WARUNGPOSBE-0.0.1-SNAPSHOT.jar &'
+                    sh 'cd /var/lib/jenkins/workspace/WARUNGPOSBE/target && nohup java -jar warungposbe-0.0.1-SNAPSHOT.jar &'
                 }
             }
         }
