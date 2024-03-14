@@ -4,19 +4,14 @@ pipeline {
         pollSCM('*/2 * * * *')
     }
     stages {
-//                 stage('Build') {
-//                     steps {
-//                         sh 'mvn clean install'
-//                     }
-//                 }
                 stage('Build') {
-                    withMaven(maven: 'mvn') {
-                                sh "mvn clean package"
-                            }
+                    steps {
+                        sh 'sudo mvn clean install'
+                    }
                 }
                 stage('Test') {
                     steps {
-                        sh 'mvn test'
+                        sh 'sudo mvn test'
                     }
                 }
                 stage('Deploy') {
