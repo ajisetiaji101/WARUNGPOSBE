@@ -23,8 +23,9 @@ pipeline {
                         // If process is running, kill it
                         sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
                     }
+                    sh "cp ${JAR_FILE} ${/var/lib/jenkins/workspace/WARUNGPOSBE/warungposbe-0.0.1-SNAPSHOT.jar}/${}.jar"
                     // Deploy the application using nohup
-                    sh 'BUILD_ID=dontKillMe nohup java -jar /var/lib/jenkins/workspace/WARUNGPOSBE/target/warungposbe-0.0.1-SNAPSHOT.jar > /var/lib/jenkins/workspace/WARUNGPOSBE/nohup.out 2>&1 &'
+                    sh "sudo systemctl start warungposbe-0.0.1-SNAPSHOT.jar"
                 }
             }
         }
