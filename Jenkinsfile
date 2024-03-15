@@ -21,7 +21,6 @@ pipeline {
                     def isProcessRunning = sh(script: 'ps aux | grep warungposbe-0.0.1-SNAPSHOT.jar | grep -v grep', returnStatus: true)
                     if (isProcessRunning == 0) {
                         // If process is running, kill it
-                        sh 'chown aji:aji /var/lib/jenkins/workspace/WARUNGPOSBE/target/warungposbe-0.0.1-SNAPSHOT.jar'
                         sh 'systemctl stop spring-boot-warungpos.service'
                     }
                     // Deploy the application using nohup
