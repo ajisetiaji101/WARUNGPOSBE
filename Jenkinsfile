@@ -21,10 +21,10 @@ pipeline {
                     def isProcessRunning = sh(script: 'ps aux | grep warungposbe-0.0.1-SNAPSHOT.jar | grep -v grep', returnStatus: true)
                     if (isProcessRunning == 0) {
                         // If process is running, kill it
-                        sh 'pkill -f warungposbe-0.0.1-SNAPSHOT.jar '
+                        sh 'systemctl stop spring-boot-warungpos.service'
                     }
                     // Deploy the application using nohup
-                    sh 'BUILD_ID=dontKillMe nohup java -jar /target/warungposbe-0.0.1-SNAPSHOT.jar > nohup.out 2>&1 &'
+                    sh 'systemctl status spring-boot-warungpos.service'
                 }
             }
         }
